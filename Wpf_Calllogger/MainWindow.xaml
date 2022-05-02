@@ -1,0 +1,45 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CallLogger;assembly=CallLogger"
+        xmlns:CallLogger="clr-namespace:CallLogger;assembly=CallLogger" xmlns:System="clr-namespace:System;assembly=System.Runtime" x:Class="Wpf_Calllogger.MainWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="500" Width="1000">
+    <Window.Resources>
+        <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="CallLogger:Status"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Window.Resources>
+    <Window.DataContext>
+        <local:Logger/>
+    </Window.DataContext>
+    <Grid>
+        <Button Content="Save" HorizontalAlignment="Left" Margin="875,404,0,0" VerticalAlignment="Top" Height="35" Width="85" Click="Button_ClickSaveList"/>
+        <Button Content="Load" HorizontalAlignment="Left" Margin="765,404,0,0" VerticalAlignment="Top" Height="35" Width="85" Click="Button_ClickLoad"/>
+        <TextBox x:Name="loadDate" HorizontalAlignment="Left" Margin="590,412,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Height="18"/>
+        <TextBox x:Name="caller" HorizontalAlignment="Left" Height="30" Margin="40,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"/>
+        <TextBox x:Name="title" HorizontalAlignment="Left" Margin="140,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="30"/>
+        <TextBox x:Name="desc" HorizontalAlignment="Left" Margin="280,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" Height="30"/>
+        <TextBox x:Name="tid" HorizontalAlignment="Left" Margin="580,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="30"/>
+
+        <Button Content="Save Call" HorizontalAlignment="Left" Margin="878,44,0,0" VerticalAlignment="Top" Height="30" Width="82" Click="Button_SaveCall"/>
+        <ComboBox x:Name="status" ItemsSource="{Binding Source={StaticResource dataFromEnum}}" SelectedItem="{Binding Path=CurrentEffectStyle}" HorizontalAlignment="Left" Margin="720,44,0,0" VerticalAlignment="Top" Width="120" Height="30">
+        </ComboBox>
+        <Button Content="Start Day" HorizontalAlignment="Left" Margin="40,404,0,0" VerticalAlignment="Top" Height="35" Width="70" Click="Button_Click"/>
+        <Label Content="Caller" HorizontalAlignment="Left" Margin="40,13,0,0" VerticalAlignment="Top" Width="75"/>
+        <Label Content="Title" HorizontalAlignment="Left" Margin="140,13,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Description" HorizontalAlignment="Left" Margin="280,13,0,0" VerticalAlignment="Top" Width="105"/>
+        <Label Content="Ticket ID" HorizontalAlignment="Left" Margin="580,13,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Status" HorizontalAlignment="Left" Margin="720,13,0,0" VerticalAlignment="Top" Width="80"/>
+        <Label Content="Enter a date (YYYY-MM-DD)" HorizontalAlignment="Left" Margin="590,381,0,0" VerticalAlignment="Top" Width="160"/>
+        <Button Content="End Day" HorizontalAlignment="Left" Margin="130,404,0,0" VerticalAlignment="Top" Height="35" Width="70" Click="Button_ClickEndDay"/>
+        <DataGrid x:Name="list" d:ItemsSource="{Binding CallList}" Margin="40,115,40,125" ColumnWidth="*"/>
+        <Label Content="Date:" HorizontalAlignment="Left" Margin="40,84,0,0" VerticalAlignment="Top" Width="38"/>
+        <Label x:Name="dateTop" HorizontalAlignment="Left" Margin="83,84,0,0" VerticalAlignment="Top" Width="130" Height="26"/>
+
+    </Grid>
+</Window>

@@ -4,17 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.Json;
+using System.Collections.ObjectModel;
 
 namespace CallLogger
 {
     public class Logger
     {
-        private List<Call> callList;
+        private ObservableCollection<Call> callList;
         private int count;
         public DateTime dateTime;
 
         public int Count { get { return count; } set { count = value; } }
-        public List<Call> CallList { get { return callList; } set { callList = value; } }
+        public ObservableCollection<Call> CallList { get { return callList; } set { callList = value; } }
 
         public void AddCall(Call call)
         {
@@ -27,7 +28,7 @@ namespace CallLogger
             string fileName = dateTime.ToString("yyyy-MM-dd");
             var options = new JsonSerializerOptions { WriteIndented = true };
             var json = JsonSerializer.Serialize(CallList, options);
-            using (StreamWriter sw = new StreamWriter(@"C:\EBTJAJ\Calls\" + fileName + ".json"))
+            using (StreamWriter sw = new StreamWriter(fileName + ".json")) //@"C:\EBTJAJ\Calls\" + 
             {
                 sw.Write(json);
             };
@@ -35,11 +36,11 @@ namespace CallLogger
 
         public void Load(string date)
         {
-            string fileName = date;
-            string path = @"C:\EBTJAJ\Calls\" + fileName + ".json";
-            string jsonString = File.ReadAllText(path);
+            string fileName = date + ".json";
+            //string path = @"C:\EBTJAJ\Calls\" + fileName + ".json";
+            string jsonString = File.ReadAllText(fileName);
             CallList = new();
-            CallList = JsonSerializer.Deserialize<List<Call>>(jsonString);
+            CallList = JsonSerializer.Deserialize<ObservableCollection<Call>>(jsonString);
             dateTime = CallList[0].Date;
             Count = CallList.Count();
 
@@ -58,7 +59,7 @@ namespace CallLogger
             string fileName = dateTime.ToString("yyyy-MM-dd");
             var options = new JsonSerializerOptions { WriteIndented = true };
             var json = JsonSerializer.Serialize(CallList, options);
-            using (StreamWriter sw = new StreamWriter(@"C:\EBTJAJ\Calls\" + fileName + ".json"))
+            using (StreamWriter sw = new StreamWriter(fileName + ".json")) // (@"C:\EBTJAJ\Calls\" +*/
             {
                 sw.Write(json);
             };

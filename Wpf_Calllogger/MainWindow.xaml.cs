@@ -43,7 +43,7 @@ namespace Wpf_Calllogger
         private void Timer_Tick(object sender, EventArgs e)
         {
             secondsElapsed++;
-            timer.Content = (secondsElapsed / 100F).ToString("00:00 minutes");
+            timer.Content = TimeSpan.FromSeconds(secondsElapsed);
         }
 
         private void Button_ClickSaveList(object sender, RoutedEventArgs e)
@@ -59,7 +59,7 @@ namespace Wpf_Calllogger
             bool success2 = Enum.TryParse(status.Text, out state);
                
             timerSw.Stop();
-            string duration = (secondsElapsed / 100F).ToString("00:00 minutes");
+            string duration = TimeSpan.FromSeconds(secondsElapsed).ToString();
 
             
             Call newCall = new(caller.Text, title.Text, desc.Text, number , state , duration);

@@ -72,6 +72,7 @@ namespace Wpf_Calllogger
             callLogger.Load(date);
             list.ItemsSource = callLogger.CallList;
             dateTop.Content = callLogger.CallList[0].Date;
+            loadDate.Text = "";
         }
 
         private void Button_ClickEndDay(object sender, RoutedEventArgs e)

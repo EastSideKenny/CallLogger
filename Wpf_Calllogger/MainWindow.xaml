@@ -40,6 +40,8 @@
         <DataGrid x:Name="list" d:ItemsSource="{Binding CallList}" Margin="40,115,40,125" ColumnWidth="*"/>
         <Label Content="Date:" HorizontalAlignment="Left" Margin="40,84,0,0" VerticalAlignment="Top" Width="38"/>
         <Label x:Name="dateTop" HorizontalAlignment="Left" Margin="83,84,0,0" VerticalAlignment="Top" Width="130" Height="26"/>
+        <Button Content="Start Call" HorizontalAlignment="Left" Margin="320,404,0,0" VerticalAlignment="Top" Height="35" Width="65" Click="Button_Click_1"/>
+        <Label x:Name="timer" Content="{Binding Path=counter}" HorizontalAlignment="Left" Margin="401,404,0,0" VerticalAlignment="Top" Height="35" Width="119"/>
 
     </Grid>
 </Window>

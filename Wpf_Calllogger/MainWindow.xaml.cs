@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using CallLogger;
 
 namespace Wpf_Calllogger
@@ -22,7 +23,10 @@ namespace Wpf_Calllogger
     public partial class MainWindow : Window
     {
         public Logger callLogger = new();
-        
+        DispatcherTimer timerSw = new DispatcherTimer();
+        int secondsElapsed;
+
+       
 
         public MainWindow()
         {
@@ -31,9 +35,15 @@ namespace Wpf_Calllogger
             //callLogger.CallList = new();
             //callLog.Text = callLogger.CallList.ToString();
             dateTop.Content = DateTime.Now;
+            timerSw.Interval = TimeSpan.FromSeconds(1);
+            timerSw.Tick += Timer_Tick;
 
+        }
 
-
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            secondsElapsed++;
+            timer.Content = (secondsElapsed / 100F).ToString("00:00 minutes");
         }
 
         private void Button_ClickSaveList(object sender, RoutedEventArgs e)
@@ -47,8 +57,12 @@ namespace Wpf_Calllogger
             bool success = int.TryParse(tid.Text, out number);
             Status state;
             bool success2 = Enum.TryParse(status.Text, out state);
+               
+            timerSw.Stop();
+            string duration = (secondsElapsed / 100F).ToString("00:00 minutes");
+
             
-            Call newCall = new(caller.Text, title.Text, desc.Text, number , state);
+            Call newCall = new(caller.Text, title.Text, desc.Text, number , state , duration);
             callLogger.AddCall(newCall);
             list.ItemsSource = callLogger.CallList;
             caller.Text = "";
@@ -80,5 +94,12 @@ namespace Wpf_Calllogger
             callLogger.endDay();
             list.ItemsSource = callLogger.CallList;
         }
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            timerSw.Start();
+            secondsElapsed = 0;
+        }
+
+
     }
 }

@@ -14,6 +14,7 @@ namespace CallLogger
         private int ticketID = 0;
         private Status status;
         private DateTime date;
+        private string duration;
 
         public string Caller { get { return caller; } set { caller = value; } }
         public string Title { get { return title; } set { title = value; } }
@@ -21,8 +22,9 @@ namespace CallLogger
         public int TicketID { get { return ticketID; } set { ticketID = value; } }
         public Status Status { get { return status; } set{ status = value; } }
         public DateTime Date { get { return date; } set { date = value; } }
+        public string Duration { get { return duration; } set { duration = value; } }
 
-        public Call(string caller, string title, string desc, int id, Status status)
+        public Call(string caller, string title, string desc, int id, Status status, string duration)
         {
             Caller = caller;
             Title = title;
@@ -30,6 +32,7 @@ namespace CallLogger
             TicketID = id;
             Status = status;
             Date = DateTime.Now;
+            Duration = duration;
         }
 
         public Call() { }

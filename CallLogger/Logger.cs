@@ -41,6 +41,7 @@ namespace CallLogger
             CallList = new();
             CallList = JsonSerializer.Deserialize<List<Call>>(jsonString);
             dateTime = CallList[0].Date;
+            Count = CallList.Count();
 
         }
 

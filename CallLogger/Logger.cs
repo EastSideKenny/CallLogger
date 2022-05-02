@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.Json;
 
 namespace CallLogger
 {
@@ -10,6 +11,7 @@ namespace CallLogger
     {
         private List<Call> callList;
         private int count;
+        public DateTime dateTime;
 
         public int Count { get { return count; } set { count = value; } }
         public List<Call> CallList { get { return callList; } set { callList = value; } }
@@ -22,25 +24,51 @@ namespace CallLogger
 
         public void Save()
         {
-            throw new NotImplementedException();
+            string fileName = dateTime.ToString("yyyy-MM-dd");
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            var json = JsonSerializer.Serialize(CallList, options);
+            using (StreamWriter sw = new StreamWriter(@"C:\EBTJAJ\Calls\" + fileName + ".json"))
+            {
+                sw.Write(json);
+            };
         }
 
-        public void Load()
+        public void Load(string date)
         {
-            throw new NotImplementedException();
+            string fileName = date;
+            string path = @"C:\EBTJAJ\Calls\" + fileName + ".json";
+            string jsonString = File.ReadAllText(path);
+            CallList = new();
+            CallList = JsonSerializer.Deserialize<List<Call>>(jsonString);
+            dateTime = CallList[0].Date;
+
         }
 
         public void startDay()
         {
+            dateTime = DateTime.Now;
             callList = new();
             count = 0;
+            Console.WriteLine($"Today's date is {dateTime.ToString("dd/MM/yyyy")}");
         }
 
         public void endDay()
         {
-            throw new NotImplementedException();
+            string fileName = dateTime.ToString("yyyy-MM-dd");
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            var json = JsonSerializer.Serialize(CallList, options);
+            using (StreamWriter sw = new StreamWriter(@"C:\EBTJAJ\Calls\" + fileName + ".json"))
+            {
+                sw.Write(json);
+            };
+            CallList = new();
         }
 
+        public void ClearView()
+        {
+            dateTime = DateTime.Now;
+            CallList = new();
+        }
 
     }
 }

@@ -70,9 +70,15 @@ namespace Wpf_Calllogger
         {
             int number;
             bool success = int.TryParse(tid.Text, out number); // make sure tid.Text is an int
+            if (!success)
+            {
+                number = 000000;
+            }
             Status state;
-            bool success2 = Enum.TryParse(status.Text, out state); // make sure status.Text is a valid enum item
-               
+            bool success2 = Enum.TryParse(status.Text, out state); // make sure status.Text is a valid enum item   
+            if (!success2) {
+                state = Status.Open;
+            }
             timerSw.Stop(); // stop the current timer
             string duration = TimeSpan.FromSeconds(secondsElapsed).ToString(); 
 

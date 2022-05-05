@@ -107,6 +107,8 @@ namespace Wpf_Calllogger
         {
             callLogger.startDay();
             list.ItemsSource = callLogger.CallList;
+            totalCalls.Text = "0";
+            totalDuration.Content = "00:00:00";
         }
 
         /// <summary>

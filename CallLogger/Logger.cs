@@ -14,10 +14,7 @@ namespace CallLogger
     public class Logger
     {
         private ObservableCollection<Call> callList;
-        private int count;
         public DateTime dateTime;
-
-        public int Count { get { return count; } set { count = value; } }
         public ObservableCollection<Call> CallList { get { return callList; } set { callList = value; } }
 
         /// <summary>
@@ -27,7 +24,6 @@ namespace CallLogger
         public void AddCall(Call call)
         {
             CallList.Add(call);
-            count++;
         }
 
         /// <summary>
@@ -55,8 +51,6 @@ namespace CallLogger
             CallList = new();
             CallList = JsonSerializer.Deserialize<ObservableCollection<Call>>(jsonString);
             dateTime = CallList[0].Date;
-            Count = CallList.Count();
-
         }
 
         /// <summary>
@@ -66,7 +60,6 @@ namespace CallLogger
         {
             dateTime = DateTime.Now;
             callList = new();
-            count = 0;
             Console.WriteLine($"Today's date is {dateTime.ToString("dd/MM/yyyy")}");
         }
 

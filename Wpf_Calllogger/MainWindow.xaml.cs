@@ -25,8 +25,9 @@ namespace Wpf_Calllogger
         public Logger callLogger = new(); // instantiate Logger
         DispatcherTimer timerSw = new DispatcherTimer(); // instantiate timer
         int secondsElapsed; // keep track of seconds elapsed
+        TimeSpan totalDurationSpan;
 
-       
+
         public MainWindow()
         {
             InitializeComponent();
@@ -36,7 +37,6 @@ namespace Wpf_Calllogger
             dateTop.Content = DateTime.Now; // set time to current
             timerSw.Interval = TimeSpan.FromSeconds(1); // set Ticker timespan
             timerSw.Tick += Timer_Tick;
-
         }
 
         /// <summary>
@@ -58,6 +58,7 @@ namespace Wpf_Calllogger
         private void Button_ClickSaveList(object sender, RoutedEventArgs e)
         {
             callLogger.Save();
+            UpdateTotals();
         }
 
         /// <summary>
@@ -87,6 +88,8 @@ namespace Wpf_Calllogger
             tid.Text = "";
             status.Text = "";
             newCall = null!;
+
+            UpdateTotals();
         }
 
         /// <summary>
@@ -113,6 +116,7 @@ namespace Wpf_Calllogger
             list.ItemsSource = callLogger.CallList;
             dateTop.Content = callLogger.CallList[0].Date;
             loadDate.Text = "";
+            UpdateTotals();
         }
 
         /// <summary>
@@ -135,6 +139,21 @@ namespace Wpf_Calllogger
         {
             timerSw.Start();
             secondsElapsed = 0;
+        }
+
+
+        /// <summary>
+        /// Update total calls and total duration counters
+        /// </summary>
+        private void UpdateTotals()
+        {
+            totalCalls.Text = callLogger.CallList.Count().ToString();
+            totalDurationSpan = new();
+            foreach (Call call in callLogger.CallList)
+            {
+                totalDurationSpan += TimeSpan.Parse(call.Duration);
+            }
+            totalDuration.Content = totalDurationSpan; 
         }
 
 

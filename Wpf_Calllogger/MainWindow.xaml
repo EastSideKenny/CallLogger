@@ -42,6 +42,10 @@
         <Label x:Name="dateTop" HorizontalAlignment="Left" Margin="83,84,0,0" VerticalAlignment="Top" Width="130" Height="26"/>
         <Button Content="Start Call" HorizontalAlignment="Left" Margin="320,404,0,0" VerticalAlignment="Top" Height="35" Width="65" Click="Button_Click_1"/>
         <Label x:Name="timer" HorizontalAlignment="Left" Margin="401,404,0,0" VerticalAlignment="Top" Height="35" Width="119"/>
+        <Label Content="Total calls:" HorizontalAlignment="Left" Height="26" Margin="742,343,0,0" VerticalAlignment="Top" Width="66"/>
+        <TextBox x:Name="totalCalls" HorizontalAlignment="Left" Height="20" Margin="804,346,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="20" IsEnabled="False"/>
+        <Label Content="Duration:" HorizontalAlignment="Left" Margin="830,343,0,0" VerticalAlignment="Top" Height="26"/>
+        <Label x:Name="totalDuration" Content="" HorizontalAlignment="Left" Margin="883,343,0,0" VerticalAlignment="Top" Width="77"/>
 
     </Grid>
 </Window>

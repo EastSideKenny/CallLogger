@@ -22,63 +22,89 @@ namespace Wpf_Calllogger
     /// </summary>
     public partial class MainWindow : Window
     {
-        public Logger callLogger = new();
-        DispatcherTimer timerSw = new DispatcherTimer();
-        int secondsElapsed;
+        public Logger callLogger = new(); // instantiate Logger
+        DispatcherTimer timerSw = new DispatcherTimer(); // instantiate timer
+        int secondsElapsed; // keep track of seconds elapsed
 
        
-
         public MainWindow()
         {
             InitializeComponent();
-            status.ItemsSource = Enum.GetValues(typeof(Status)).Cast<Status>();
+            status.ItemsSource = Enum.GetValues(typeof(Status)).Cast<Status>(); // Get Enum Values for status dropdown
             //callLogger.CallList = new();
             //callLog.Text = callLogger.CallList.ToString();
-            dateTop.Content = DateTime.Now;
-            timerSw.Interval = TimeSpan.FromSeconds(1);
+            dateTop.Content = DateTime.Now; // set time to current
+            timerSw.Interval = TimeSpan.FromSeconds(1); // set Ticker timespan
             timerSw.Tick += Timer_Tick;
 
         }
 
-        private void Timer_Tick(object sender, EventArgs e)
+        /// <summary>
+        /// Update Timer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Timer_Tick(object? sender, EventArgs e)
         {
             secondsElapsed++;
             timer.Content = TimeSpan.FromSeconds(secondsElapsed);
         }
 
+        /// <summary>
+        /// Save the current list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_ClickSaveList(object sender, RoutedEventArgs e)
         {
             callLogger.Save();
         }
 
+        /// <summary>
+        /// Save a call
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_SaveCall(object sender, RoutedEventArgs e)
         {
             int number;
-            bool success = int.TryParse(tid.Text, out number);
+            bool success = int.TryParse(tid.Text, out number); // make sure tid.Text is an int
             Status state;
-            bool success2 = Enum.TryParse(status.Text, out state);
+            bool success2 = Enum.TryParse(status.Text, out state); // make sure status.Text is a valid enum item
                
-            timerSw.Stop();
-            string duration = TimeSpan.FromSeconds(secondsElapsed).ToString();
+            timerSw.Stop(); // stop the current timer
+            string duration = TimeSpan.FromSeconds(secondsElapsed).ToString(); 
 
             
-            Call newCall = new(caller.Text, title.Text, desc.Text, number , state , duration);
-            callLogger.AddCall(newCall);
-            list.ItemsSource = callLogger.CallList;
+            Call newCall = new(caller.Text, title.Text, desc.Text, number , state , duration); // create a call object
+            callLogger.AddCall(newCall); // add the object to the call list
+            list.ItemsSource = callLogger.CallList; // refresh call list view
+
+            // reset the fields
             caller.Text = "";
             title.Text = "";
             desc.Text = "";
             tid.Text = "";
             status.Text = "";
-            newCall = null;
+            newCall = null!;
         }
 
+        /// <summary>
+        /// Start a new day
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             callLogger.startDay();
             list.ItemsSource = callLogger.CallList;
         }
 
+        /// <summary>
+        /// Load a .json file
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_ClickLoad(object sender, RoutedEventArgs e)
         {
             
@@ -89,11 +115,22 @@ namespace Wpf_Calllogger
             loadDate.Text = "";
         }
 
+        /// <summary>
+        /// End current day
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_ClickEndDay(object sender, RoutedEventArgs e)
         {
             callLogger.endDay();
             list.ItemsSource = callLogger.CallList;
         }
+
+        /// <summary>
+        /// Start a call
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             timerSw.Start();

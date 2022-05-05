@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace CallLogger
 {
+    /// <summary>
+    /// A class to store all the information of an incoming Call
+    /// </summary>
     public class Call
     {
         private string caller = "Caller";
@@ -24,6 +27,16 @@ namespace CallLogger
         public DateTime Date { get { return date; } set { date = value; } }
         public string Duration { get { return duration; } set { duration = value; } }
 
+
+        /// <summary>
+        /// Main constructor
+        /// </summary>
+        /// <param name="caller">Who called?</param>
+        /// <param name="title">What is it about?</param>
+        /// <param name="desc">Short description / notes</param>
+        /// <param name="id">Ticket ID</param>
+        /// <param name="status">Status</param>
+        /// <param name="duration">Total duration of the call</param>
         public Call(string caller, string title, string desc, int id, Status status, string duration)
         {
             Caller = caller;
@@ -35,6 +48,9 @@ namespace CallLogger
             Duration = duration;
         }
 
+        /// <summary>
+        /// Constructor to use when importing .json files to the calllist
+        /// </summary>
         public Call() { }
     }
 }

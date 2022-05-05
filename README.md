@@ -2,7 +2,7 @@
 > A simple app to log calls / take notes
 
 ```
-Log your calls / take notes in an easy way
+Log calls / take notes in an easy way
 Save your day in JSON format
 Load your saved days back in to look up / correct calls
 ```

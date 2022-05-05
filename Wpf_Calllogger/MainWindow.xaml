@@ -27,7 +27,7 @@
         <TextBox x:Name="tid" HorizontalAlignment="Left" Margin="580,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="30"/>
 
         <Button Content="Save Call" HorizontalAlignment="Left" Margin="878,44,0,0" VerticalAlignment="Top" Height="30" Width="82" Click="Button_SaveCall"/>
-        <ComboBox x:Name="status" ItemsSource="{Binding Source={StaticResource dataFromEnum}}" SelectedItem="{Binding Path=CurrentEffectStyle}" HorizontalAlignment="Left" Margin="720,44,0,0" VerticalAlignment="Top" Width="120" Height="30">
+        <ComboBox x:Name="status" ItemsSource="{Binding Source={StaticResource dataFromEnum}}" HorizontalAlignment="Left" Margin="720,44,0,0" VerticalAlignment="Top" Width="120" Height="30">
         </ComboBox>
         <Button Content="Start Day" HorizontalAlignment="Left" Margin="40,404,0,0" VerticalAlignment="Top" Height="35" Width="70" Click="Button_Click"/>
         <Label Content="Caller" HorizontalAlignment="Left" Margin="40,13,0,0" VerticalAlignment="Top" Width="75"/>
@@ -41,7 +41,7 @@
         <Label Content="Date:" HorizontalAlignment="Left" Margin="40,84,0,0" VerticalAlignment="Top" Width="38"/>
         <Label x:Name="dateTop" HorizontalAlignment="Left" Margin="83,84,0,0" VerticalAlignment="Top" Width="130" Height="26"/>
         <Button Content="Start Call" HorizontalAlignment="Left" Margin="320,404,0,0" VerticalAlignment="Top" Height="35" Width="65" Click="Button_Click_1"/>
-        <Label x:Name="timer" Content="{Binding Path=counter}" HorizontalAlignment="Left" Margin="401,404,0,0" VerticalAlignment="Top" Height="35" Width="119"/>
+        <Label x:Name="timer" HorizontalAlignment="Left" Margin="401,404,0,0" VerticalAlignment="Top" Height="35" Width="119"/>
 
     </Grid>
 </Window>

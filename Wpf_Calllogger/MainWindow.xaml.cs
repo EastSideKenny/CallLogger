@@ -87,12 +87,7 @@ namespace Wpf_Calllogger
             callLogger.AddCall(newCall); // add the object to the call list
             list.ItemsSource = callLogger.CallList; // refresh call list view
 
-            // reset the fields
-            caller.Text = "";
-            title.Text = "";
-            desc.Text = "";
-            tid.Text = "";
-            status.Text = "";
+            resetFields();
             newCall = null!;
 
             UpdateTotals();
@@ -107,8 +102,7 @@ namespace Wpf_Calllogger
         {
             callLogger.startDay();
             list.ItemsSource = callLogger.CallList;
-            totalCalls.Text = "0";
-            totalDuration.Content = "00:00:00";
+            resetFields();
         }
 
         /// <summary>
@@ -123,7 +117,7 @@ namespace Wpf_Calllogger
             callLogger.Load(date);
             list.ItemsSource = callLogger.CallList;
             dateTop.Content = callLogger.CallList[0].Date;
-            loadDate.Text = "";
+            resetFields();
             UpdateTotals();
         }
 
@@ -136,8 +130,7 @@ namespace Wpf_Calllogger
         {
             callLogger.endDay();
             list.ItemsSource = callLogger.CallList;
-            totalCalls.Text = "0";
-            totalDuration.Content = "00:00:00";
+            resetFields();
         }
 
         /// <summary>
@@ -166,6 +159,18 @@ namespace Wpf_Calllogger
             totalDuration.Content = totalDurationSpan; 
         }
 
+        private void resetFields()
+        {
+            // reset the fields
+            caller.Text = "";
+            title.Text = "";
+            desc.Text = "";
+            tid.Text = "";
+            status.Text = "";
+            loadDate.Text = "";
+            totalCalls.Text = "0";
+            totalDuration.Content = "00:00:00";
+        }
 
     }
 }

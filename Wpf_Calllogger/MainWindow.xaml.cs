@@ -142,6 +142,7 @@ namespace Wpf_Calllogger
         {
             timerSw.Start();
             secondsElapsed = 0;
+            resetFields();
         }
 
 
@@ -159,9 +160,12 @@ namespace Wpf_Calllogger
             totalDuration.Content = totalDurationSpan; 
         }
 
+        /// <summary>
+        /// Reset all the fields 
+        /// </summary>
         private void resetFields()
         {
-            // reset the fields
+           
             caller.Text = "";
             title.Text = "";
             desc.Text = "";

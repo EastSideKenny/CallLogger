@@ -82,15 +82,16 @@ namespace Wpf_Calllogger
             timerSw.Stop(); // stop the current timer
             string duration = TimeSpan.FromSeconds(secondsElapsed).ToString(); 
 
-            
             Call newCall = new(caller.Text, title.Text, desc.Text, number , state , duration); // create a call object
             callLogger.AddCall(newCall); // add the object to the call list
             list.ItemsSource = callLogger.CallList; // refresh call list view
 
             resetFields();
             newCall = null!;
-
+            secondsElapsed = 0;
+            timer.Content = TimeSpan.FromSeconds(secondsElapsed);
             UpdateTotals();
+            
         }
 
         /// <summary>
@@ -103,6 +104,8 @@ namespace Wpf_Calllogger
             callLogger.startDay();
             list.ItemsSource = callLogger.CallList;
             resetFields();
+            totalCalls.Text = "0";
+            totalDuration.Content = "00:00:00";
         }
 
         /// <summary>
@@ -131,6 +134,8 @@ namespace Wpf_Calllogger
             callLogger.endDay();
             list.ItemsSource = callLogger.CallList;
             resetFields();
+            totalCalls.Text = "0";
+            totalDuration.Content = "00:00:00";
         }
 
         /// <summary>
@@ -172,8 +177,7 @@ namespace Wpf_Calllogger
             tid.Text = "";
             status.Text = "";
             loadDate.Text = "";
-            totalCalls.Text = "0";
-            totalDuration.Content = "00:00:00";
+            
         }
 
     }

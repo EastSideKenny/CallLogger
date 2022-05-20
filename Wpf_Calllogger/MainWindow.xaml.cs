@@ -84,13 +84,14 @@ namespace Wpf_Calllogger
             timerSw.Stop(); // stop the current timer
             string duration = TimeSpan.FromSeconds(secondsElapsed).ToString();
 
+            // create note variable
             string note = "";
 
-            if (textNotes.Text != String.Empty) 
+            if (textNotes.Text != String.Empty) // if the note is not empty - save it in a text file
             { 
                 note = DateTime.Now.ToString("dd-MM-yyyy") + "-" + TimeOnly.FromDateTime(DateTime.Now).ToString("HHmm") + ".txt";
 
-                using (StreamWriter writer = File.CreateText(note))
+                using (StreamWriter writer = File.CreateText($"notes/{note}"))
                 {
                     writer.Write(textNotes.Text);
                 }
@@ -102,6 +103,7 @@ namespace Wpf_Calllogger
             callLogger.AddCall(newCall); // add the object to the call list
             list.ItemsSource = callLogger.CallList; // refresh call list view
 
+            // Reset the fields / timer / update totals
             resetFields();
             newCall = null!;
             secondsElapsed = 0;
@@ -134,7 +136,7 @@ namespace Wpf_Calllogger
         {
             
             string date = loadDate.Text;
-            callLogger.Load(date);
+            callLogger.Load($"days/{date}");
             list.ItemsSource = callLogger.CallList;
             dateTop.Content = callLogger.CallList[0].Date;
             resetFields();
@@ -199,6 +201,11 @@ namespace Wpf_Calllogger
 
         }
 
+        /// <summary>
+        /// Add a note to the current ongoing call
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void addNote(object sender, RoutedEventArgs e)
         {
             if (textNotes.Visibility == Visibility.Hidden) { textNotes.Visibility = Visibility.Visible; }
@@ -206,6 +213,11 @@ namespace Wpf_Calllogger
             textNotes.Text = "";
         }
 
+        /// <summary>
+        /// Read a note from a saved call
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void readNote(object sender, RoutedEventArgs e)
         {
             string noteToRead = loadNote.Text;

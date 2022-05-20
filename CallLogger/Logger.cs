@@ -34,7 +34,7 @@ namespace CallLogger
             string fileName = dateTime.ToString("yyyy-MM-dd");
             var options = new JsonSerializerOptions { WriteIndented = true };
             var json = JsonSerializer.Serialize(CallList, options);
-            using (StreamWriter sw = new StreamWriter(fileName + ".json"))
+            using (StreamWriter sw = new StreamWriter("days/" + fileName + ".json"))
             {
                 sw.Write(json);
             };
@@ -46,7 +46,7 @@ namespace CallLogger
         /// <param name="date">Filename is equal to a date</param>
         public void Load(string date)
         {
-            string fileName = date + ".json";
+            string fileName = "days/" + date + ".json";
             string jsonString = File.ReadAllText(fileName);
             CallList = new();
             CallList = JsonSerializer.Deserialize<ObservableCollection<Call>>(jsonString);
@@ -71,7 +71,7 @@ namespace CallLogger
             string fileName = dateTime.ToString("yyyy-MM-dd");
             var options = new JsonSerializerOptions { WriteIndented = true };
             var json = JsonSerializer.Serialize(CallList, options);
-            using (StreamWriter sw = new StreamWriter(fileName + ".json")) // (@"C:\EBTJAJ\Calls\" +*/
+            using (StreamWriter sw = new StreamWriter("days/" + fileName + ".json")) // (@"C:\EBTJAJ\Calls\" +*/
             {
                 sw.Write(json);
             };

@@ -48,9 +48,9 @@
         <Label x:Name="totalDuration" Content="" HorizontalAlignment="Left" Margin="883,343,0,0" VerticalAlignment="Top" Width="77"/>
         <TextBox x:Name="textNotes" HorizontalAlignment="Left" Margin="760,115,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="194" Height="163" Visibility="Hidden" Background="#FFFFF18F"/>
         <Button Content="Note" HorizontalAlignment="Left" Margin="460,404,0,0" VerticalAlignment="Top" Height="35" Width="60" Click="addNote"/>
-        <Button Content="Read Note" HorizontalAlignment="Left" Margin="460,360,0,0" VerticalAlignment="Top" Height="34" Width="60" Click="readNote"/>
-        <TextBox x:Name="loadNote" HorizontalAlignment="Left" Margin="295,367,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Height="18"/>
-        <Label Content="DD-MM-YYYY-HHmm" HorizontalAlignment="Left" Margin="295,343,0,0" VerticalAlignment="Top" Width="160"/>
+        <Button Content="Read Note" HorizontalAlignment="Left" Margin="390,404,0,0" VerticalAlignment="Top" Height="35" Width="60" Click="readNote"/>
+        <TextBox x:Name="loadNote" HorizontalAlignment="Left" Margin="236,412,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="135" Height="18"/>
+        <Label Content="DD-MM-YYYY-HHmm" HorizontalAlignment="Left" Margin="236,381,0,0" VerticalAlignment="Top" Width="160"/>
 
     </Grid>
 

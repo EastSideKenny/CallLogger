@@ -222,7 +222,7 @@ namespace Wpf_Calllogger
         {
             string noteToRead = loadNote.Text;
 
-            using (StreamReader sr = new StreamReader(noteToRead))
+            using (StreamReader sr = new StreamReader("notes/" + noteToRead))
             {
                 textNotes.Text = sr.ReadToEnd();
                 loadNote.Text = "";

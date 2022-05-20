@@ -82,13 +82,20 @@ namespace Wpf_Calllogger
                 state = Status.Open;
             }
             timerSw.Stop(); // stop the current timer
-            string duration = TimeSpan.FromSeconds(secondsElapsed).ToString(); 
+            string duration = TimeSpan.FromSeconds(secondsElapsed).ToString();
 
-            string note = DateTime.Now.ToString("dd-MM-yyyy") + "-" + TimeOnly.FromDateTime(DateTime.Now).ToString("HHmm") + ".txt";
+            string note = "";
 
-            using (StreamWriter writer = File.CreateText(note))
-            {
-                writer.Write(textNotes.Text);
+            if (textNotes.Text != String.Empty) 
+            { 
+                note = DateTime.Now.ToString("dd-MM-yyyy") + "-" + TimeOnly.FromDateTime(DateTime.Now).ToString("HHmm") + ".txt";
+
+                using (StreamWriter writer = File.CreateText(note))
+                {
+                    writer.Write(textNotes.Text);
+                }
+
+                
             }
 
             Call newCall = new(caller.Text, title.Text, desc.Text, number , state , duration, note); // create a call object

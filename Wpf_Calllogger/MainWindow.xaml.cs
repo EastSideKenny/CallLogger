@@ -220,7 +220,7 @@ namespace Wpf_Calllogger
         /// <param name="e"></param>
         private void readNote(object sender, RoutedEventArgs e)
         {
-            string noteToRead = loadNote.Text;
+            string noteToRead = loadNote.Text + ".txt";
 
             using (StreamReader sr = new StreamReader("notes/" + noteToRead))
             {

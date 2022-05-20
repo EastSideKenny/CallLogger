@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using CallLogger;
+using System.IO;
+
 
 namespace Wpf_Calllogger
 {
@@ -82,7 +84,14 @@ namespace Wpf_Calllogger
             timerSw.Stop(); // stop the current timer
             string duration = TimeSpan.FromSeconds(secondsElapsed).ToString(); 
 
-            Call newCall = new(caller.Text, title.Text, desc.Text, number , state , duration); // create a call object
+            string note = DateTime.Now.ToString("dd-MM-yyyy") + "-" + TimeOnly.FromDateTime(DateTime.Now).ToString("HHmm") + ".txt";
+
+            using (StreamWriter writer = File.CreateText(note))
+            {
+                writer.Write(textNotes.Text);
+            }
+
+            Call newCall = new(caller.Text, title.Text, desc.Text, number , state , duration, note); // create a call object
             callLogger.AddCall(newCall); // add the object to the call list
             list.ItemsSource = callLogger.CallList; // refresh call list view
 
@@ -90,6 +99,7 @@ namespace Wpf_Calllogger
             newCall = null!;
             secondsElapsed = 0;
             timer.Content = TimeSpan.FromSeconds(secondsElapsed);
+            textNotes.Visibility = Visibility.Hidden;
             UpdateTotals();
             
         }
@@ -177,8 +187,29 @@ namespace Wpf_Calllogger
             tid.Text = "";
             status.Text = "";
             loadDate.Text = "";
-            
+            textNotes.Text = "";
+
+
         }
 
+        private void addNote(object sender, RoutedEventArgs e)
+        {
+            if (textNotes.Visibility == Visibility.Hidden) { textNotes.Visibility = Visibility.Visible; }
+            else if (textNotes.Visibility == Visibility.Visible) { textNotes.Visibility = Visibility.Hidden; }
+            textNotes.Text = "";
+        }
+
+        private void readNote(object sender, RoutedEventArgs e)
+        {
+            string noteToRead = loadNote.Text;
+
+            using (StreamReader sr = new StreamReader(noteToRead))
+            {
+                textNotes.Text = sr.ReadToEnd();
+                loadNote.Text = "";
+            }
+
+            textNotes.Visibility = Visibility.Visible;
+        }
     }
 }

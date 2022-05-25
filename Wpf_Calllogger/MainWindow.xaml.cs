@@ -94,9 +94,7 @@ namespace Wpf_Calllogger
                 using (StreamWriter writer = File.CreateText($"notes/{note}"))
                 {
                     writer.Write(textNotes.Text);
-                }
-
-                
+                }                
             }
 
             Call newCall = new(caller.Text, title.Text, desc.Text, number , state , duration, note); // create a call object
@@ -136,7 +134,7 @@ namespace Wpf_Calllogger
         {
             
             string date = loadDate.Text;
-            callLogger.Load($"days/{date}");
+            callLogger.Load(date);
             list.ItemsSource = callLogger.CallList;
             dateTop.Content = callLogger.CallList[0].Date;
             resetFields();
